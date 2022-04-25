@@ -75,6 +75,7 @@ const ThoughtController = {
                 if(!deletedThought){
                     return res.status(404).json({ message: 'No thought with this id' })
                 }
+                res.json(deletedThought);
                 // bonus to remove thought from user
                 //User.findOneAndUpdate(
                 //    { _id: params.userId },
@@ -85,13 +86,13 @@ const ThoughtController = {
                 //console.log(params.thoughtId); shows _id
                 //return;
             })
-            .then(dbUserData => {
-                if(!dbUserData){
-                    res.status(404).json({ message: 'No user found with this id' });
-                    return;
-                }
-                res.json(dbUserData);
-            })
+            //.then(dbUserData => {
+            //    if(!dbUserData){
+            //        res.status(404).json({ message: 'No user found with this id' });
+            //        return;
+            //    }
+            //    res.json(dbUserData);
+            //})
             .catch(err => res.json(err));
     },
 
