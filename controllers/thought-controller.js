@@ -32,10 +32,11 @@ const ThoughtController = {
 
     // POST a thought
     addThought({ params, body }, res){
+        console.log(params);
         Thought.create(body)
             .then(({ _id }) => {
                 return User.findOneAndUpdate(
-                    { _id: params.userId },
+                    { _id: req.params.userId },
                     { $push: { thoughts: _id } },
                     { new: true }
                 );
@@ -53,9 +54,9 @@ const ThoughtController = {
     // PUT a thought by _id
     updateThought({ params, body }, res){
         Thought.findOneAndUpdate(
-            { _id: params.thoughId }, 
+            { _id: params.thoughtId }, 
             body, 
-            { new: true, runValidators: true }
+            { new: true }
         )
             .then(dbThoughtData => {
                 // if no thought is found
