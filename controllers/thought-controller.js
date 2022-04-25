@@ -31,14 +31,13 @@ const ThoughtController = {
     },
 
     // POST a thought
-    addThought({ params, body }, res){
-        console.log(params);
+    addThought({ body }, res){
         Thought.create(body)
-            .then(({ _id }) => {
+        .then(({ _id }) => {
                 return User.findOneAndUpdate(
-                    { _id: req.params.userId },
+                    { _id: body.userId },
                     { $push: { thoughts: _id } },
-                    { new: true }
+                    { new: true, runValidators: true }
                 );
             })
             .then(dbUserData => {
@@ -76,19 +75,22 @@ const ThoughtController = {
                 if(!deletedThought){
                     return res.status(404).json({ message: 'No thought with this id' })
                 }
-                
-                //return User.findOneAndUpdate(
+                // bonus to remove thought from user
+                //User.findOneAndUpdate(
                 //    { _id: params.userId },
                 //    { $pull: { thoughts: { thoughtId: params.thoughtId } } },
                 //    { new: true }
-                //);
+                //    );
+                //console.log(params.userId); undefined
+                //console.log(params.thoughtId); shows _id
+                //return;
             })
-            .then(dbPizzaData => {
-                if(!dbPizzaData){
-                    res.status(404).json({ message: 'No pizza found with this id' });
+            .then(dbUserData => {
+                if(!dbUserData){
+                    res.status(404).json({ message: 'No user found with this id' });
                     return;
                 }
-                res.json(dbPizzaData);
+                res.json(dbUserData);
             })
             .catch(err => res.json(err));
     },
