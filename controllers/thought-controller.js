@@ -1,4 +1,5 @@
 
+const { param } = require('express/lib/request');
 const { Thought, User } = require('../models');
 
 const ThoughtController = {
@@ -75,16 +76,14 @@ const ThoughtController = {
                 if(!deletedThought){
                     return res.status(404).json({ message: 'No thought with this id' })
                 }
-                res.json(deletedThought);
                 // bonus to remove thought from user
                 //User.findOneAndUpdate(
                 //    { _id: params.userId },
-                //    { $pull: { thoughts: { thoughtId: params.thoughtId } } },
+                //    { $pull: { thoughts: params.thoughtId } },
                 //    { new: true }
                 //    );
                 //console.log(params.userId); undefined
                 //console.log(params.thoughtId); shows _id
-                //return;
             })
             //.then(dbUserData => {
             //    if(!dbUserData){
