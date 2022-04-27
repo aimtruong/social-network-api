@@ -1,5 +1,4 @@
 
-const { param } = require('express/lib/request');
 const { Thought, User } = require('../models');
 
 const ThoughtController = {
@@ -7,16 +6,12 @@ const ThoughtController = {
     getAllThoughts(req, res){
         Thought.find({})
             .then(dbThoughtData => res.json(dbThoughtData))
-            .catch(err => {
-                console.log(err);
-                res.status(400).json(err);
-            });
+            .catch(err => res.json(err));
     },
 
     // GET a thought by _id
     getThoughtById({ params }, res){
         Thought.findOne({ _id: params.thoughtId })
-            //.select('-id')
             .then(dbThoughtData => {
                 // if no thought is found
                 if(!dbThoughtData){
@@ -25,20 +20,17 @@ const ThoughtController = {
                 }
                 res.json(dbThoughtData);
             })
-            .catch(err => {
-                console.log(err);
-                res.status(400).json(err);
-            });
+            .catch(err => res.json(err));
     },
 
     // POST a thought
     addThought({ body }, res){
         Thought.create(body)
-        .then(({ _id }) => {
+        .then(( _id ) => {
                 return User.findOneAndUpdate(
                     { _id: body.userId },
                     { $push: { thoughts: _id } },
-                    { new: true, runValidators: true }
+                    { new: true }
                 );
             })
             .then(dbUserData => {
@@ -66,7 +58,7 @@ const ThoughtController = {
                 }
                 res.json(dbThoughtData);
             })
-            .catch(err => res.status(400).json(err));
+            .catch(err => res.json(err));
     },
 
     // DELETE a thought by _id
@@ -76,9 +68,10 @@ const ThoughtController = {
                 if(!deletedThought){
                     return res.status(404).json({ message: 'No thought with this id' })
                 }
+                res.status(200).json({ message: 'This thought has been deleted' });
                 // bonus to remove thought from user
                 //User.findOneAndUpdate(
-                //    { _id: params.userId },
+                //    { _id: body.userId },
                 //    { $pull: { thoughts: params.thoughtId } },
                 //    { new: true }
                 //    );
@@ -124,7 +117,7 @@ const ThoughtController = {
                     res.status(404).json({ message: 'No reaction with this id' })
                     return;
                 }
-                res.json(dbReactionData);
+                res.status(200).json({ message: 'This reaction has been deleted'});
             })
             .catch(err => res.json(err));
     }
