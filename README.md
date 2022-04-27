@@ -10,9 +10,7 @@
 ## Table of Contents
 - [Installation](#installation)
 - [Usage](#usage)
-- [License](#license)
 - [Contributing](#contributing)
-- [Tests](#tests)
 - [Questions](#questions)
 
 ---
@@ -29,7 +27,7 @@
 ![first-look](assets/images/first-look.JPG)
 
 ## WalkThrough
-[Click to open video](assets/social-network-api.mp4)
+[Click to open video](https://drive.google.com/file/d/1GfL_YpnLAf3BfF-qvP8njqWMnfvSLrd8/view?usp=sharing)
 
 
 ## Contributing
