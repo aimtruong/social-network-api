@@ -29,7 +29,7 @@
 ![first-look](assets/images/first-look.JPG)
 
 ## WalkThrough
-[Click to open video]()
+[Click to open video](assets/social-network-api.mp4)
 
 
 ## Contributing
