@@ -105,7 +105,7 @@ const ThoughtController = {
             .catch(err => res.json(err));
     },
 
-    // DELETE reaction on thought
+    // DELETE reaction on thought by _id
     removeReaction({ params }, res){
         Thought.findOneAndUpdate(
             { _id: params.thoughtId },

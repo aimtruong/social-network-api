@@ -9,7 +9,7 @@ const userController = {
             .catch(err => res.json(err));
     },
 
-    // GET a user
+    // GET a user by id
     getUserById({ params }, res){
         User.findOne({ _id: params.userId })
             .populate([
@@ -40,7 +40,7 @@ const userController = {
             .catch(err => res.json(err));
     },
 
-    // PUT a user
+    // PUT a user by id
     updateUser({ params, body }, res){
         User.findOneAndUpdate(
             { _id: params.userId },
@@ -58,7 +58,7 @@ const userController = {
             .catch(err => res.json(err));
     },
 
-    // DELETE a user
+    // DELETE a user by id
     deleteUser({ params }, res){
         User.findOneAndDelete({ _id: params.userId })
             .then(dbUserData => {
@@ -72,7 +72,7 @@ const userController = {
             .catch(err => res.json(err));
     },
 
-    // POST a user's friend
+    // POST a user's friend by id
     addFriend({ params, body }, res){
         User.findOneAndUpdate(
             { _id: params.userId },
@@ -90,7 +90,7 @@ const userController = {
             .catch(err => res.json(err));
     },
 
-    // DELETE a user's friend
+    // DELETE a user's friend by id
     deleteFriend({ params }, res){
         User.findOneAndUpdate(
             { _id: params.userId },
